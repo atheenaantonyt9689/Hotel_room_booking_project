@@ -1,4 +1,5 @@
 module.exports={
  DatabaseSample:"hotelroom",
- Admin_Collection:'admindata'
+ Admin_Collection:'admindata',
+ Hoteluser_Collection:"hotel"
 }
