@@ -5,6 +5,7 @@ var generator=require('generate-password');
 var nodemailer=require('nodemailer');
 const { response } = require('express');
 const { getMaxListeners } = require('../app');
+const collections = require('../config/collections');
 var objectId=require('mongodb').ObjectID
  
 var Password = generator.generate({
@@ -105,6 +106,33 @@ module.exports={
                 resolve(info)
             }
         });
+        })
+    },
+    deleteHotel:(hotelid)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.Hoteluser_Collection).removeOne({_id:objectId(hotelid)}).then((response)=>{
+                console.log(response)
+                resolve(response)
+            })
+        })
+    },
+    getHotelDetails:(hotelid)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.Hoteluser_Collection).findOne({_id:objectId(hotelid)}).then((hotels)=>{
+                resolve(hotels)
+            })
+        })
+    },
+    upadateHotel:(hotelid,HotelDetails)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.Hoteluser_Collection).updateOne({_id:objectId(hotelid)},{
+                $set:{
+                    Email:HotelDetails.Email,
+                    City:HotelDetails.City
+                }
+            }).then((response)=>{
+                resolve()
+            })
         })
     }
 }

@@ -1,11 +1,11 @@
-<div class="row">
+
+<section> 
+    <div class="row">
     <div class="col-md-6 m-auto">
         <div class="container mt-5 pl-5">
             <h2 class="text-center">Hotel Login</h2>
-            <form  action="/admin/login" method="POST">
-            {{if loginErr}}
-            <p class="error">Invalid username or password</p>
-            {{/if}}
+            <form action="/hotels/login" method="POST">
+                
                 <div class="form-group">
                     <label>Username</label>
                     <input type="email" class="form-control" name="Email" placeholder="Enter email">
@@ -15,20 +15,21 @@
                     <label>Password</label>
                     <input type="password" class="form-control" placeholder="Password" name="Password">
                 </div>
-                
+
                 <!--a href="/signup">Create a new account ?</a-->
                 <button type="submit" class="btn btn-primary float-right">Login</button>
                 <style>
-        body {
-            background-image: url('https://img.freepik.com/free-photo/sunset-pool_1203-3192.jpg?size=626&ext=jpg');
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            background-size: cover;
-          }
-        </style>
+                    body {
+                        background-image: url('https://img.freepik.com/free-photo/sunset-pool_1203-3192.jpg?size=626&ext=jpg');
+                        background-repeat: no-repeat;
+                        background-attachment: fixed;
+                        background-size: cover;
+                    }
+                </style>
             </form>
         </div>
 
 
     </div>
 </div>
+</section>

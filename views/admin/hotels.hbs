@@ -15,15 +15,15 @@
       <tbody>
         {{#each hotel}}
         <tr>
-          
+        
           <td>{{this.Name}}</td>
           <td>{{this.Email}}</td>
           <td>{{this.City}}</td>
-        </tr>
-        <left><td>
-        <a href="/admin/edit-hotel" class="btn btn-primary">Edit</a>
-           <a href="/admin/detete-hotel" class="btn btn-danger" onclick="return confirm('are you want to delete {{this.Name}} ?')">Delete</a>
-         </left></td>
+      
+        
+        <td><a href="/admin/edit-hotel/{{this._id}}" class="btn btn-primary">Edit</a></td>
+           <td><a href="/admin/delete-hotel/{{this._id}}" class="btn btn-danger" onclick="return confirm('are you want to delete {{this.Name}} ?')">Delete</a></td>
+         
       </tr>
         {{/each}}
 

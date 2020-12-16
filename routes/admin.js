@@ -1,7 +1,7 @@
 var express = require('express');
 const { response } = require('../app');
 var router = express.Router();
-const adminHelpers=require('../helpers/admin_heplers')
+const adminHelpers=require('../helpers/admin_heplers') 
 //const nodemailer=require('nodemailer'); 
 const verifyLogin=(req,res,next)=>{
   if(req.session.loggedIn){
@@ -105,7 +105,25 @@ router.post('/add-hotels',(req,res)=>{
     //res.redirect('/admin/hotels')
   })
 })
+router.get('/delete-hotel/:id',(req,res)=>{
 
+  let hotelId=req.params.id
+  console.log(hotelId)
+  adminHelpers.deleteHotel(hotelId).then((response)=>{
+    res.redirect('/admin/hotels')
+  })
+})
+router.get('/edit-hotel/:id',async(req,res)=>{
+  let hotels= await adminHelpers.getHotelDetails(req.params.id)
+  console.log(hotels);
+  res.render('admin/edit-hotel',{hotels})
+})
+router.post('/edit-hotel/:id',(req,res)=>{
+  console.log(req.param._id);
+  adminHelpers.upadateHotel(req.params.id, req.body).then(()=>{
+    res.redirect('/admin-home')
+  })
+})
 module.exports = router;
 //hotel regisration section
 /*router.get('/hotel-registration',function(req,res){
@@ -115,6 +133,7 @@ module.exports = router;
   const transporter = nodemailer.createTransport({
     host: 'smtp.ethereal.email',
     port: 587,
+    
     auth: {
         user: 'noemy.oconner@ethereal.email',
         pass: 'Y1SxwbjRkDSZ5gube1'

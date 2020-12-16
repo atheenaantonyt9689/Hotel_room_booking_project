@@ -14,11 +14,11 @@
       {{#if admin}}
       {{>admin-header}}
       {{else}}
+      {{>hotel-header}}
+      {{/if}}
+      {{#if user}}
       {{>user-header}}
       {{/if}}
-      {{!--#if hotel}}
-      {{>hotel-header}}
-      {{/if--}}
       {{{body}}}
     
     <!-- Optional JavaScript -->
