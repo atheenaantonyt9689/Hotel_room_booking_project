@@ -4,16 +4,22 @@
     <div class="col-md-6 m-auto">
         <div class="container mt-5 pl-5">
             <h2 class="text-center">Hotel Login</h2>
-            <form action="/hotels/login" method="POST">
+            <form action="hotel/login" method="POST">
+            {{#if LoginErr}}
+
+                <p class="error" >Inavalid Username or Password</p>
+            {{/if}}
+        
+
                 
                 <div class="form-group">
                     <label>Username</label>
-                    <input type="email" class="form-control" name="Email" placeholder="Enter email">
+                    <input type="Email" class="form-control" name="Email" placeholder="Enter email">
                 </div>
                 <div class="form-group">
 
                     <label>Password</label>
-                    <input type="password" class="form-control" placeholder="Password" name="Password">
+                    <input type="Password" class="form-control" placeholder="Password" name="Password">
                 </div>
 
                 <!--a href="/signup">Create a new account ?</a-->

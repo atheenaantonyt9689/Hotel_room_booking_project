@@ -1,3 +1,4 @@
+//const{resolve,reject}=require('promise')
 var db=require('../config/connection')
 var collection=require('../config/collections')
 const bcrypt=require('bcrypt')
@@ -5,7 +6,7 @@ var generator=require('generate-password');
 var nodemailer=require('nodemailer');
 const { response } = require('express');
 const { getMaxListeners } = require('../app');
-const collections = require('../config/collections');
+//const collections = require('../config/collections');
 var objectId=require('mongodb').ObjectID
  
 var Password = generator.generate({
