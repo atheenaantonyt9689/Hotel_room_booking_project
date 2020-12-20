@@ -10,6 +10,7 @@ var adminRouter = require('./routes/admin');
 var hotelRouter = require('./routes/hotel');
 var hbs=require('express-handlebars')
 var app = express();
+var fileUpload=require('express-fileupload')
 //database connect 
 var db=require('./config/connection')
 var session=require('express-session')
@@ -30,6 +31,7 @@ db.connect((err)=>{
   if (err)console.log("connection Err"+err);
   else console.log("Database connected to the port:27017"+err);
 })
+app.use(fileUpload())
 app.use('/', userRouter);
 app.use('/admin', adminRouter);
 app.use('/hotel',hotelRouter);

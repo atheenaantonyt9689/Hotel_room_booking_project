@@ -1,4 +1,4 @@
-//const { resolve, reject } = require('promise')
+const { resolve, reject } = require('Promise')
 const bcrypt = require('bcrypt')
 var db = require('../config/connection')
 var collection = require('../config/collections')
@@ -36,5 +36,97 @@ module.exports = {
 
             
         })
-    }
+    },
+    doSignup: (hotelData) => {
+        return new Promise(async (resolve, reject) => {
+            await db.get().collection(collection.Hoteluser_Collection).insertOne(hotelData).then((data) => {
+
+                resolve(data.ops[0])
+            })
+
+
+        })
+    },
+   /* updateHotel: (hotelid, hotelData) => {
+        console.log(hotelData);
+        console.log(hotelid);
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.HOTELUSER_COLLECTION)
+                .updateOne({ _id: objectId(hotelid) }, {
+                    $set: {
+                        hotelname: hotelData.Name,
+                        email: hotelData.Email,
+                        phone: hotelData.Contactno,
+                        location: hotelData.Location,
+                        address: hotelData.Address
+
+                    }
+                }).then((response) => {
+                    resolve()
+                })
+        })
+    },
+    getHotelDetails: (hotelid) => {
+       return new Promise((resolve, reject) => {
+            db.get().collection(collection.Hoteluser_Collection).findOne({ _id: objectId(hotelid) }).then((hotel) => {
+                resolve(hotels)
+            })
+        })
+    },
+    getHotel: (hotelid) => {
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.HOTELUSER_COLLECTION).findOne({ _id: objectId(hotelid) }).then((hotel) => {
+                resolve(hotel)
+            })
+        })
+    },
+    addRoom: (hotelData, hid) => {
+        return new Promise(async (resolve, reject) => {
+            let rooms = {
+                hotelid: objectId(hid._id),
+                rooms: [hotelData]
+
+            }
+            
+            db.get().collection(collection.ROOM_COLLECTION).insertOne(rooms).then((data) => {
+                console.log(hotelData);
+                resolve(data.ops[0]._id)
+            })
+
+
+        })
+    },
+    /*etAllRooms: (hotelid) => {
+        return new Promise(async (resolve, reject) => {
+            let rooms = await db.get().collection(collection.ROOM_COLLECTION).aggregate([
+                {
+                    $match: { hotelid: objectId(hotelid._id) }
+                },
+                {
+                    $unwind: '$rooms'
+                },
+                {
+                    $project: {
+                        roomname: '$rooms.roomname',
+                        price: '$rooms.price',
+                        features: '$rooms.features',
+                        avileblerooms: '$rooms.avileblerooms',
+                        type: '$rooms.type',
+                        image: '$rooms.image'
+                    }
+                },
+                {
+                    $lookup: {
+                        from: collection.ROOM_COLLECTION,
+                        localField: 'hotelid',
+                        foreignField: '_id',
+                        as: 'rooms'
+                    }
+                }
+            ]).toArray()
+            console.log("roomsss",rooms);
+            resolve(rooms)
+        })
+
+    }*/
 }

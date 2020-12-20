@@ -1,6 +1,7 @@
 //const { resolve, reject } = require('promise')
 const { response } = require('express');
 var express = require('express');
+const { updateHotel } = require('../helpers/hotel-helpers');
 var router = express.Router();
 const hotelHelpers = require('../helpers/hotel-helpers');
 const verifyLogin=(req,res,next)=>{
@@ -47,10 +48,61 @@ router.get('/login',(req,res)=>{
 }
 
 })
+
 router.get('/signup',(req,res)=>{
   res.render('hotel/signup')
 })
 
+router.post('/signup', (req, res) => {
+  hotelHelpers.doSignup(req.body).then((response) => {
+    console.log(response)
+    req.session.hotel = response
+    req.session.hotelloggedIn = true
+    res.redirect('/hotel')
+  })
+})
+router.get('/logout',(req,res)=>{
+  req.session.destroy()
+  res.redirect('/')
+})
+/*router.get('/home',(req,res)=>{
+  res.render('hotel/home')
+})
+router.get('/view-profile',(req,res)=>{
+  res.render('hotel/view-profile')
+})
+router.get('/edit_profile',(req,res)=>{
+  res.render('hotel/edit_profile')
+})
+
+
+router.get('/view-profile',async(req,res)=>{
+  let hotels=await hotelHelpers.getHotels(req.body)
+  res.render('hotel/view-profile',{hotel:true,hotels})
+})
+
+router.get('/edit_profile/:_id',async(req,res)=>{
+  let hotels=await hotelHelpers.getHotelDetails(req.params.id)
+  console.log(hotels);
+  res.render('hotel/edit_profile',{hotel:true,hotels})
+})
+router.post('/edit-profile/:id',(req,res)=>{
+  hotelHelpers,updateHotel(req.params.id,req.body).then(()=>{
+    res.redirect('/hotel/view-profile')
+  })
+})*/
+    //let image=req.files.Image
+    /*image.mv('./public/room-images/'+id+'.jpg',(err,done)=>{
+
+      if(!err){
+        res.render("hotel/add-rooms")
+      }else{
+        console.log(err);
+      }
+    })*/
+
+    
+  
 module.exports = router;
 /*const verifyLogin=(req,res,next)=>{
   if(req.session.loggedIn){

@@ -1,8 +1,7 @@
 var express = require('express');
-const { response } = require('../app');
+const { response } = require('express');
 var router = express.Router();
-const adminHelpers=require('../helpers/admin_heplers') 
-//const nodemailer=require('nodemailer'); 
+const adminHelpers=require('../helpers/admin_heplers')  
 const verifyLogin=(req,res,next)=>{
   if(req.session.loggedIn){
     next()
@@ -18,7 +17,7 @@ router.get('/', function(req, res, next) {
     //console.log(hotel);
     let admin=req.session.admin
     if(req.session.loggedIn){
-      res.render('admin/admin-home',{ admin:true,admin})
+      res.render('admin/admin-home',{ admin})
     }else{
       res.render('admin/login',{"LoginErr":req.session.LoginErr})
       req.session.LoginErr=false
@@ -33,22 +32,22 @@ router.get('/', function(req, res, next) {
           req.session.admin=response.admin
           res.redirect('/admin')
         }else{
-          req.session.loginErr=true
+          req.session.LoginErr=true
           res.redirect('/admin')
         }
       })
     
     })
   
-  router.get('/login',(req,res)=>{
-  if(req.session.loggedIn){
-    res.redirect('/admin')
-  }else{
-    res.render('admin/login',{"loginErr":req.session.loginErr})
-    req.session.loginErr=false
-}
+ // router.get('/login',(req,res)=>{
+ // if(req.session.loggedIn){
+    //res.redirect('/admin')
+  //}else{
+    //res.render('admin/login',{"loginErr":req.session.loginErr})
+    //req.session.loginErr=false
+//}
 
-})
+//})
 router.get('/signup',(req,res)=>{
   res.render('admin/signup')
 })
@@ -113,15 +112,16 @@ router.get('/delete-hotel/:id',(req,res)=>{
     res.redirect('/admin/hotels')
   })
 })
+
 router.get('/edit-hotel/:id',async(req,res)=>{
   let hotels= await adminHelpers.getHotelDetails(req.params.id)
   console.log(hotels);
-  res.render('admin/edit-hotel',{hotels})
+  res.render('admin/edit-hotel',{ admin:true,hotels})
 })
 router.post('/edit-hotel/:id',(req,res)=>{
-  console.log(req.param._id);
+  console.log(req.params._id);
   adminHelpers.upadateHotel(req.params.id, req.body).then(()=>{
-    res.redirect('/admin-home')
+    res.redirect('/admin/hotels')
   })
 })
 module.exports = router;

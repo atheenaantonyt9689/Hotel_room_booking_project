@@ -1,0 +1,34 @@
+<div class="container mt-5">
+  <div class="row mt-4">
+    
+      <a href="/hotel/add-rooms" class="btn btn-success ml-auto my-5">Add Rooms</a>
+    </div>
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Room Name</th>
+        <th scope="col">Type</th>
+        <th scope="col">Features</th>
+        <th scope="col">avileble rooms</th>
+        <th scope="col">price</th>
+        <th></th>
+
+      </tr>
+    </thead>
+    <tbody>
+       {{#each rooms}} 
+      <tr>
+        <th class="count" scope="row"></th>
+        <td><img style="width:70px;height:60px" src="/room-images/{{this._id}}.jpg">{{this.roomname}}</td>
+        <td>{{this.type}}</td>
+        <td>{{this.features}}</td>
+        <td>{{this.avileblerooms}}</td>
+        <td>{{this.price}}</td>
+        <td><a href="/admin/edit-hotel/{{this._id}}" class="btn btn-primary">Edit</a>
+           <a href="/admin/detete-hotel/{{this._id}}" class="btn btn-danger" onclick="return confirm('are you want to delete {{this.name}} ?')">Delete</a></td>
+          
+      </tr>
+     {{/each}}
+    </tbody>
+  </table>

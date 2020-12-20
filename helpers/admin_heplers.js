@@ -1,4 +1,4 @@
-//const{resolve,reject}=require('promise')
+const{resolve,reject}=require('promise')
 var db=require('../config/connection')
 var collection=require('../config/collections')
 const bcrypt=require('bcrypt')
@@ -124,12 +124,14 @@ module.exports={
             })
         })
     },
-    upadateHotel:(hotelid,HotelDetails)=>{
+    upadateHotel:(hotelid,HotelData)=>{
+        console.log(HotelData);
+        console.log(hotelid);
         return new Promise((resolve,reject)=>{
             db.get().collection(collection.Hoteluser_Collection).updateOne({_id:objectId(hotelid)},{
                 $set:{
-                    Email:HotelDetails.Email,
-                    City:HotelDetails.City
+                    Email:HotelData.Email,
+                    City:HotelData.City
                 }
             }).then((response)=>{
                 resolve()
