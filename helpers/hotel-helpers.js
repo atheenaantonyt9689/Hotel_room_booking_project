@@ -37,36 +37,62 @@ module.exports = {
             
         })
     },
-    doSignup: (hotelData) => {
-        return new Promise(async (resolve, reject) => {
-            await db.get().collection(collection.Hoteluser_Collection).insertOne(hotelData).then((data) => {
-
-                resolve(data.ops[0])
-            })
-
-
-        })
-    },
-   /* updateHotel: (hotelid, hotelData) => {
+    /*Profile: (hotelData,callback) => {
         console.log(hotelData);
-        console.log(hotelid);
-        return new Promise((resolve, reject) => {
-            db.get().collection(collection.HOTELUSER_COLLECTION)
-                .updateOne({ _id: objectId(hotelid) }, {
-                    $set: {
-                        hotelname: hotelData.Name,
-                        email: hotelData.Email,
-                        phone: hotelData.Contactno,
-                        location: hotelData.Location,
-                        address: hotelData.Address
-
-                    }
-                }).then((response) => {
-                    resolve()
-                })
+        db.get().collection('hotel').insertOne(hotelData).then((data)=>{
+            console.log(data);
+            callback(data.ops[0]._id)
         })
-    },
-    getHotelDetails: (hotelid) => {
+    }
+
+}*/
+        doSignup: (hotelData) => {
+            return new Promise(async (resolve, reject) => {
+                db.get().collection(collection.Hoteluser_Collection).insertOne(hotelData).then((data) => {
+                     console.log(hotelData)
+                    resolve(data.ops[0])
+                })
+    
+    
+            })
+        },
+        getHotel: (hotelid) => {
+            return new Promise((resolve, reject) => {
+                db.get().collection(collection.Hoteluser_Collection).findOne({ _id: objectId(hotelid) }).then((hotel) => {
+                    resolve(hotel)
+                })
+            })
+        },
+        getHotelDetails: (hotelid) => {
+            return new Promise((resolve, reject) => {
+                 db.get().collection(collection.Hoteluser_Collection).findOne({ _id: objectId(hotelid) }).then((hotel) => {
+                     resolve(hotel)
+                 })
+             })
+         },
+         updateHotel: (hotelid, hotelData) => {
+            console.log(hotelData);
+            console.log(hotelid);
+            return new Promise((resolve, reject) => {
+                db.get().collection(collection.Hoteluser_Collection)
+                    .updateOne({ _id: objectId(hotelid) }, {
+                        $set: {
+                            hotelname: hotelData.hotalName,
+                            email: hotelData.hotelEmail,
+                            phone: hotelData.hotelContactno,
+                            location: hotelData.hotelLocation,
+                            address: hotelData.hotelAddress
+    
+                        }
+                    }).then((response) => {
+                        resolve()
+                    })
+            })
+        }
+}    
+
+    
+    /*getHotelDetails: (hotelid) => {
        return new Promise((resolve, reject) => {
             db.get().collection(collection.Hoteluser_Collection).findOne({ _id: objectId(hotelid) }).then((hotel) => {
                 resolve(hotels)
@@ -129,4 +155,4 @@ module.exports = {
         })
 
     }*/
-}
+

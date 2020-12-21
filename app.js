@@ -25,13 +25,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(fileUpload())
 app.use(session({secret:"Key",cookie:{maxAge:600000}}))
 //db connection call
 db.connect((err)=>{
   if (err)console.log("connection Err"+err);
   else console.log("Database connected to the port:27017"+err);
 })
-app.use(fileUpload())
 app.use('/', userRouter);
 app.use('/admin', adminRouter);
 app.use('/hotel',hotelRouter);
