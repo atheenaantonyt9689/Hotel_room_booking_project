@@ -80,7 +80,7 @@ router.get('/edit_profile/:id',async(req,res)=>{
 })
 
 router.post('/edit_profile/:id',(req,res)=>{
-  hotelHelpers.updateHotel(req.params.id,req.body).then((id)=>{
+  hotelHelpers.updateHotel(req.params.id,req.body).then(()=>{
     res.redirect('/hotel/home')
     if(req.files.image){
       let id=req.params.id
