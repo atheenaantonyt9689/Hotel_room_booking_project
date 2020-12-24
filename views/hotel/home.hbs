@@ -12,20 +12,20 @@
         <a class="nav-link" href="/hotel/signup">Signup<span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="/hotel/view-profile">view-profile<span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/hotel/view-profile">View-profile<span class="sr-only">(current)</span></a>
       </li>
        <li class="nav-item active">
-        <a class="nav-link" href="/hotel/edit_profile">edit<span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/hotel/edit_profile">Edit<span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="/hotel/add-rooms">Add rooms<span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/hotel/rooms"> Rooms<span class="sr-only">(current)</span></a>
       </li>
       
     </ul>
     </head>
     <body>{{#if hotel}}
     <div class="profile-card" style="border-radius: 1px;border-top-left-radius: 0px;border-top-right-radius: 0px;margin-top: 5px;border-bottom-right-radius: 60px;border-bottom-left-radius: 60px;margin-right: 150px;margin-left: 150px;">
-        <!--div class="profile-back" style="border-radius: 0px;border-top-left-radius: 0px;border-top-right-radius: 0px;border-color: rgb(14, 15, 15);background: rgb(4,2,2;"></div--><img class="img-thumbnail profile-pic" src="/hotel-images/{{hotels._id}}.jpg" ">
+        <div class="profile-back" style="border-radius: 0px;border-top-left-radius: 0px;border-top-right-radius: 0px;border-color: rgb(14, 15, 15);background: rgb(4,2,2;"></div><img class="img-thumbnail profile-pic" src="/hotel-images/{{hotels._id}}.jpg" >
         <h3 class="profile-name" style="font-size: 21px;height: auto;background: rgb(28, 1, 1);font-family: Audiowide, cursive;border-radius: 18px;filter: blur(0px);">{{hotels.hotelName}}</h3>
         <ul class="list-group">
             <li class="list-group-item" ;"><span style="font-size: 20px;text-align: center;">Email&nbsp; &nbsp; :</span><span style="font-size: 23px;text-align: center;">{{hotels.hotelEmail}}</span></li>

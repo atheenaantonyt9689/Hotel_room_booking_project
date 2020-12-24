@@ -1,12 +1,79 @@
-<div class="container mt-5">
+
+<section>
+  <div class="container">
+    <div class="row mt-4">
+      <a href="/hotel/add-rooms" class="btn btn-success ml-auto">Add Rooms</a>
+    </div>
+    <table class="table">
+      <thead>
+        <tr>
+          
+          <th scope="col">ROOM NAME</th>
+          <th scope="col">AVAILABLE ROOMS</th>
+         <th scope="col">ROOM PRICE</th>
+          <th scope="col">ROOM TYPE</th>
+           <th scope="col">FEATURES</th>
+            <th scope="col">Features</th>
+           
+        </tr>
+      </thead>
+      <tbody>
+        {{#each rooms}}
+        <tr>
+          <td><img style="width:70px;height:60px" src="/room-images/{{this._id}}.jpg">{{this.RoomName}}</td>
+          <td>{{this.RoomName}}</td>
+          <td>{{this.Available}}</td>
+          <td>{{this.RoomPrice}}</td>
+          <td>{{this.type}}</td>
+          <td>{{this.features}}</td>
+          
+      
+        
+        <td><a href="/hotel/edit-rooms/{{this._id}}" class="btn btn-primary">Edit</a></td>
+           <td><a href="/hotel/delete-hotel/{{this._id}}" class="btn btn-danger" onclick="return confirm('are you want to delete {{this.Name}} ?')">Delete</a></td>
+         
+      </tr>
+        {{/each}}
+
+      </tbody>
+
+    </table>
+  </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--div class="container mt-5">
   <div class="row mt-4">
     
-      <a href="/hotel/add-rooms" class="btn btn-success ml-auto my-5">Add Rooms</a>
+      <a href="/hotel/add-rooms" class="btn btn-success ml-auto my-5">ROOMS</a>
     </div>
   <table class="table">
     <thead class="thead-dark">
       <tr>
-        <th scope="col">#</th>
+      
         <th scope="col">Room Name</th>
         <th scope="col">Type</th>
         <th scope="col">Features</th>
@@ -21,9 +88,9 @@
       <tr>
         <th class="count" scope="row"></th>
         <td><img style="width:70px;height:60px" src="/room-images/{{this._id}}.jpg">{{this.roomname}}</td>
-        <td>{{this.type}}</td>
-        <td>{{this.features}}</td>
-        <td>{{this.avileblerooms}}</td>
+        <td>}</td>
+        <td></td>
+        <td>}</td>
         <td>{{this.price}}</td>
         <td><a href="/admin/edit-hotel/{{this._id}}" class="btn btn-primary">Edit</a>
            <a href="/admin/detete-hotel/{{this._id}}" class="btn btn-danger" onclick="return confirm('are you want to delete {{this.name}} ?')">Delete</a></td>
@@ -31,4 +98,4 @@
       </tr>
      {{/each}}
     </tbody>
-  </table>
+  </table-->

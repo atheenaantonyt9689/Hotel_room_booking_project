@@ -80,16 +80,44 @@ router.get('/edit_profile/:id',async(req,res)=>{
 })
 
 router.post('/edit_profile/:id',(req,res)=>{
-  hotelHelpers.updateHotel(req.params.id,req.body).then(()=>{
+  hotelHelpers.updateHotel(req.params.id,req.body).then((id)=>{
     res.redirect('/hotel/home')
     if(req.files.image){
       let id=req.params.id
       let image=req.files.image
-      console.log(id)
+      //console.log(id)
       image.mv('./public/hotel-images/'+id+'.jpg')
     }
  })
 })
+router.get('/add-rooms',(req,res)=>{
+  res.render('hotel/add-rooms',{hotel:req.session.hotel})
+
+})
+router.post('/add-rooms',(req,res)=>{
+  console.log(req.body);
+  console.log(req.files.image);
+  hotelHelpers.addRoom(req.body,req.session.hotel).then((id)=>{
+    console.log(id);
+    let image=req.files.Image
+    image.mv('./public/room-images/'+id+'.jpg',(err)=>{
+      if(!err){
+        res.redirect('/hotel/rooms')
+    req.session.hotelloggedIn = true
+      }else{
+        console.log(err);
+      }
+    })
+  })
+
+})
+router.get('/rooms',async(req,res)=>{
+  let rooms= await hotelHelpers.getAllRooms(req.session.hotel)
+    console.log(rooms);
+    res.render('hotel/rooms',{hotel:req.session.hotel,rooms})
+    req.session.hotelloggedIn=true
+
+  })
+  
 module.exports = router;
 
-   

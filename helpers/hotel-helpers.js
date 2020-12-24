@@ -5,6 +5,7 @@ var collection = require('../config/collections')
 const { response } = require('express')
 //const collections = require('../config/collections')
 var objectId = require('mongodb').ObjectID
+const collections = require('../config/collections')
 
 module.exports = {
     doLogin:(hotelData)=>{
@@ -77,18 +78,80 @@ module.exports = {
                 db.get().collection(collection.Hoteluser_Collection)
                     .updateOne({ _id: objectId(hotelid) }, {
                         $set: {
-                            hotelname: hotelData.hotalName,
-                            email: hotelData.hotelEmail,
-                            phone: hotelData.hotelContactno,
-                            location: hotelData.hotelLocation,
-                            address: hotelData.hotelAddress
+                            hotelName: hotelData.hotelName,
+                            hotelEmail: hotelData.hotelEmail,
+                            hotelContactno: hotelData.hotelContactno,
+                            hotelLocation: hotelData.hotelLocation,
+                            hotelAddress: hotelData.hotelAddress
     
                         }
                     }).then((response) => {
                         resolve()
                     })
             })
-        }
+        },
+        addRoom: (hotelData, hotelId) => {
+            return new Promise(async (resolve, reject) => {
+                let rooms = {
+                   hotelid: objectId(hotelId._id),
+                    rooms: [hotelData]
+    
+                }
+                
+                db.get().collection(collection.Room_Colletction).insertOne(rooms).then((data) => {
+                    console.log(hotelData);
+                    resolve(data.ops[0]._id)
+                })
+    
+    
+            })
+        },
+       getAllRooms: (hotelid) => {
+            return new Promise(async (resolve, reject) => {
+                let rooms = await db.get().collection(collection.Room_Colletction).aggregate([
+                    {
+                        $match: { hotelid: objectId(hotelid._id) }
+                    },
+                    {
+                        $unwind: '$rooms'
+                    },
+                    {
+                        $project: {
+                            RoomName: '$rooms.RoomName',
+                            Available: '$rooms.Available',
+                            RoomPrice: '$rooms.RoomPrice',
+                            type: '$rooms.type',
+                            features: '$rooms.features',
+                            
+                           
+                            //image: '$rooms.image'
+                        }
+                    },
+                    {
+                        $lookup: {
+                            from: collection.Room_Colletction,
+                            localField: 'hotelid',
+                            foreignField: '_id',
+                            as: 'rooms'
+                        }
+                    }
+                ]).toArray()
+                console.log("roomsss",rooms);
+                resolve(rooms)
+            })
+        //getAllRooms:()=>{
+            //return new Promise(async(resolve,reject)=>{
+                //let rooms=await db.get().collection(collection.Room_Colletction).find().toArray()
+                //resolve(rooms)
+            //})
+        //},
+        /*getAllHotels:()=>{
+            return new Promise(async(resolve,reject)=>{
+                let hotel= await db.get().collection(collection.Hoteluser_Collection).find().toArray()
+                resolve(hotel)
+            })
+    
+        }*/
 }    
 
     
@@ -155,4 +218,4 @@ module.exports = {
         })
 
     }*/
-
+}
